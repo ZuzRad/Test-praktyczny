@@ -159,7 +159,9 @@ MonoBehaviour:
   isRanged: 0
   strongAgainst: 1
   optionalAttackDamage: 13
+  projectilePrefab: {fileID: 0}
   moveSpeed: 5
+  rendererComponent: {fileID: 7717192578544438129}
   onTurnEnd:
     m_PersistentCalls:
       m_Calls: []

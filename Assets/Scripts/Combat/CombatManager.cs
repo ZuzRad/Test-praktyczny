@@ -52,7 +52,7 @@ namespace AFSInterview
 
                 currentUnit = turnOrder.Dequeue();
 
-                Debug.Log("<color=yellow>TURN " + (currentTurnIndex+1) + " now unit " + currentUnit + "</color>");
+                Debug.Log("<color=yellow>TURN " + (currentTurnIndex+1)+ "</color>");
 
 
                 currentUnit.onTurnEnd.AddListener(ExecuteNextTurn);

@@ -16,23 +16,35 @@ namespace AFSInterview
         [Header("Attack")]
         [SerializeField] private int attackInterval = 1;
         [SerializeField] private float attackDamage = 1;
-        [SerializeField] private bool isRanged = false;
         [SerializeField] private Attributes strongAgainst;
         [SerializeField] private float optionalAttackDamage = 2;
         [SerializeField] private GameObject projectilePrefab;
 
         [Header("Movement")]
+        [SerializeField] private bool isRanged = false;
         [SerializeField] private float moveSpeed = 5f;
 
         private Unit targetUnit;
         private bool isMoving = false;
         private int currentAttackInterval;
+        private IUnitState currentState;
 
         public UnityEvent onTurnEnd = new();
 
-        private void Start()
+        private void Awake()
         {
             currentAttackInterval = 1;
+        }
+
+        public void ChangeState(IUnitState newState)
+        {
+            if (currentState != null)
+            {
+                currentState.Exit(this);
+            }
+
+            currentState = newState;
+            currentState.Enter(this);
         }
 
         public bool CheckIfAttributeInList(Attributes attributeToFind) 
@@ -43,16 +55,16 @@ namespace AFSInterview
         {
             if (currentAttackInterval == 1)
             {
-                FindUnitToAttack();
+                ChangeState(new AttackState());
                 currentAttackInterval = attackInterval;
             }
             else
             {
-                StartCoroutine(WaitAndEndTurn(2f));
+                StartCoroutine(WaitAndEndTurn());
                 currentAttackInterval--;
             }
         }
-        private void FindUnitToAttack()
+        public void FindUnitToAttack()
         {
             Unit[] allUnits = FindObjectsOfType<Unit>();
 
@@ -87,9 +99,10 @@ namespace AFSInterview
             }
         }
 
-        private IEnumerator WaitAndEndTurn(float time) 
+        private IEnumerator WaitAndEndTurn() 
         {
-            yield return new WaitForSeconds(time);
+            ChangeState(new WaitState());
+            yield return new WaitForSeconds(3f);
             onTurnEnd.Invoke();
         }
 
@@ -119,11 +132,12 @@ namespace AFSInterview
 
             if (healthPoints <= 0)
             {
+                Debug.Log("<color=green>" + this.name + " died</color>");
                 Die();
             }
             else
             {
-                Debug.Log("<color=green>Taking damage: " + finalDamage + "</color>");
+                Debug.Log("<color=green>" + this.name + " taking damage: " + finalDamage + "</color>");
             }
         }
 
@@ -136,7 +150,7 @@ namespace AFSInterview
 
         public void ApplyDamage(Unit target,float damage)
         {
-            Debug.Log("<color=green>Attacking nearest unit! " + target + "</color>");
+            Debug.Log("<color=green>Attacking nearest unit: " + target.name + "</color>");
 
             if (target.CheckIfAttributeInList(strongAgainst))
             {
@@ -157,7 +171,7 @@ namespace AFSInterview
                 }
             }
 
-            StartCoroutine(WaitAndEndTurn(2f));
+            StartCoroutine(WaitAndEndTurn());
         }
     }
 }

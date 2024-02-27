@@ -162,6 +162,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2669824224010110057, guid: 2ea660a4e4c8a4a47ba51adfdc3747d3,
     type: 3}
   moveSpeed: 5
+  rendererComponent: {fileID: 4693362093937703575}
   onTurnEnd:
     m_PersistentCalls:
       m_Calls: []
