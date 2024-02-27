@@ -27,14 +27,20 @@
             sellItems = playerInput.actions["SellItems"];
             useItem = playerInput.actions["UseItem"];
 
-            pickUpItem.performed += TryPickUpItem;
-            sellItems.performed += SellItems;
-            useItem.performed += UseLastItem;
+            pickUpItem.started += TryPickUpItem;
+            sellItems.started += SellItems;
+            useItem.started += UseLastItem;
 
             UpdateMoneyUI();
             mainCamera = Camera.main;
         }
 
+        private void OnDisable()
+        {
+            pickUpItem.started -= TryPickUpItem;
+            sellItems.started -= SellItems;
+            useItem.started -= UseLastItem;
+        }
         private void Update()
 		{
 			if (Time.time >= nextItemSpawnTime)
