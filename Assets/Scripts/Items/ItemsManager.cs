@@ -2,8 +2,9 @@
 {
 	using TMPro;
 	using UnityEngine;
+    using UnityEngine.InputSystem;
 
-	public class ItemsManager : MonoBehaviour
+    public class ItemsManager : MonoBehaviour
 	{
 		[SerializeField] private InventoryController inventoryController;
 		[SerializeField] private int itemSellMaxValue;
@@ -11,22 +12,36 @@
 		[SerializeField] private GameObject itemPrefab;
 		[SerializeField] private BoxCollider itemSpawnArea;
 		[SerializeField] private float itemSpawnInterval;
+		[SerializeField] private TextMeshProUGUI moneyText;
+        [SerializeField] private PlayerInput playerInput;
 
-		private float nextItemSpawnTime;
-		
-		private void Update()
+        private float nextItemSpawnTime;
+        private InputAction pickUpItem;
+        private InputAction sellItems;
+        private Camera mainCamera;
+
+        private void Start()
+        {
+            pickUpItem = playerInput.actions["TryPickUpItem"];
+            sellItems = playerInput.actions["SellItems"];
+
+            pickUpItem.performed += TryPickUpItem;
+            sellItems.performed += SellItems;
+
+            UpdateMoneyUI();
+            mainCamera = Camera.main;
+        }
+
+        private void Update()
 		{
 			if (Time.time >= nextItemSpawnTime)
 				SpawnNewItem();
-			
-			if (Input.GetMouseButtonDown(0))
-				TryPickUpItem();
-			
-			if (Input.GetKeyDown(KeyCode.Space))
-				inventoryController.SellAllItemsUpToValue(itemSellMaxValue);
+        }
 
-			FindObjectOfType<TextMeshProUGUI>().text = "Money: " + inventoryController.Money;
-		}
+        private void UpdateMoneyUI() 
+        {
+            moneyText.text = $"Money: {inventoryController.Money}";
+        }
 
 		private void SpawnNewItem()
 		{
@@ -42,16 +57,22 @@
 			Instantiate(itemPrefab, position, Quaternion.identity, itemSpawnParent);
 		}
 
-		private void TryPickUpItem()
-		{
-			var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			var layerMask = LayerMask.GetMask("Item");
-			if (!Physics.Raycast(ray, out var hit, 100f, layerMask) || !hit.collider.TryGetComponent<IItemHolder>(out var itemHolder))
-				return;
-			
-			var item = itemHolder.GetItem(true);
-            inventoryController.AddItem(item);
-            Debug.Log("Picked up " + item.Name + " with value of " + item.Value + " and now have " + inventoryController.ItemsCount + " items");
-		}
-	}
+        private void SellItems(InputAction.CallbackContext context) 
+        {
+            inventoryController.SellAllItemsUpToValue(itemSellMaxValue);
+            UpdateMoneyUI();
+        }
+
+        private void TryPickUpItem(InputAction.CallbackContext context)
+        {
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            var layerMask = LayerMask.GetMask("Item");
+            if (Physics.Raycast(ray, out var hit, 100f, layerMask) && hit.collider.TryGetComponent<IItemHolder>(out var itemHolder)) 
+            {
+                var item = itemHolder.GetItem(true);
+                inventoryController.AddItem(item);
+                Debug.Log($"Picked up {item.Name} with value of {item.Value} and now have {inventoryController.ItemsCount} items");
+            }
+        }
+    }
 }

@@ -1,0 +1,54 @@
+{
+    "name": "PlayerInputs",
+    "maps": [
+        {
+            "name": "BasicControl",
+            "id": "15e24693-c488-4140-9b36-3c3ce39b93bf",
+            "actions": [
+                {
+                    "name": "TryPickUpItem",
+                    "type": "Button",
+                    "id": "938d402f-d813-4104-95d1-ea4d0459dd93",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SellItems",
+                    "type": "Button",
+                    "id": "8414f85a-6c95-41c0-a990-b3962a862795",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ee5e3d1e-3825-4a0f-bc0f-b13ab54db1ea",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TryPickUpItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd0bcfe6-a3ce-4be1-9bce-7b1d99168182",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SellItems",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
