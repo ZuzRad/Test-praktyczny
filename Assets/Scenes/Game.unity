@@ -751,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 6850009094724022182, guid: e2e4307e7a7bd1c48add63ec3e8c63c7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85
+      value: 0.82000005
       objectReference: {fileID: 0}
     - target: {fileID: 6850009094724022182, guid: e2e4307e7a7bd1c48add63ec3e8c63c7,
         type: 3}
@@ -2390,7 +2390,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2799,7 +2800,7 @@ PrefabInstance:
     - target: {fileID: 6850009094724022182, guid: e2e4307e7a7bd1c48add63ec3e8c63c7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6850009094724022182, guid: e2e4307e7a7bd1c48add63ec3e8c63c7,
         type: 3}

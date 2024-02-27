@@ -19,6 +19,7 @@ namespace AFSInterview
         [SerializeField] private bool isRanged = false;
         [SerializeField] private Attributes strongAgainst;
         [SerializeField] private float optionalAttackDamage = 2;
+        [SerializeField] private GameObject projectilePrefab;
 
         [Header("Movement")]
         [SerializeField] private float moveSpeed = 5f;
@@ -144,6 +145,16 @@ namespace AFSInterview
             else
             {
                 target.TakeDamage(damage);
+            }
+
+            if (isRanged)
+            {
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                
+                if (projectile.TryGetComponent<Projectile>(out var projectileComponent))
+                {
+                    projectileComponent.InitiateProjectile(target.transform.position);
+                }
             }
 
             StartCoroutine(WaitAndEndTurn(2f));
