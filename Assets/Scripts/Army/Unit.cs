@@ -3,6 +3,8 @@ namespace AFSInterview
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Events;
+    using UnityEngine.TestTools;
 
     public class Unit : MonoBehaviour
     {
@@ -23,6 +25,8 @@ namespace AFSInterview
 
         private Unit targetUnit;
         private bool isMoving = false;
+
+        public UnityEvent onTurnEnd = new UnityEvent();
 
         public void FindUnitToAttack()
         {
@@ -57,15 +61,18 @@ namespace AFSInterview
                     isMoving = true;
                 }
             }
-            else
-            {
-                Debug.Log("No enemy units nearby!");
-            }
         }
 
         private void Attack(Unit target)
         {
-            Debug.Log("Attacking nearest unit! " + target);
+            Debug.Log("<color=green>Attacking nearest unit! " + target + "</color>");
+            StartCoroutine(WaitAndEndTurn(2f));
+        }
+
+        private IEnumerator WaitAndEndTurn(float time) 
+        {
+            yield return new WaitForSeconds(time);
+            onTurnEnd.Invoke();
         }
 
         private void MoveToTarget(Unit target)
