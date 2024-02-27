@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6850009094724022182}
-  - component: {fileID: 7251681751332370029}
+  - component: {fileID: 5868204004195068987}
   m_Layer: 0
   m_Name: LongSwordKnight
   m_TagString: Untagged
@@ -140,7 +140,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7251681751332370029
+--- !u!114 &5868204004195068987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,15 +149,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3341104613207260155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a97c318e73d0bd6478d14ebe27e6cae6, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ce4c1e05048b554c92c571246a95f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attributes: 01000000
-  hp: 10
+  healthPoints: 10
   armor: 3
   nbOfTeam: 1
   attackInterval: 2
-  attackDamage: 2
-  optionalAttackDamage: 3
+  attackDamage: 8
   isRanged: 0
+  strongAgainst: 0
+  optionalAttackDamage: 10
   moveSpeed: 5
+  onTurnEnd:
+    m_PersistentCalls:
+      m_Calls: []

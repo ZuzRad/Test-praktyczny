@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 namespace AFSInterview
 {
@@ -15,6 +16,19 @@ namespace AFSInterview
         private Queue<Unit> turnOrder;
         private int currentTurnIndex = 0;
         private Unit currentUnit;
+        public static CombatManager Instance;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
         void Start()
         {
             allUnits.AddRange(army1);
@@ -43,7 +57,7 @@ namespace AFSInterview
 
                 currentUnit.onTurnEnd.AddListener(ExecuteNextTurn);
 
-                currentUnit.FindUnitToAttack();
+                currentUnit.ExecuteTurn();
                 turnOrder.Enqueue(currentUnit);
                 currentTurnIndex++;
             }
@@ -51,6 +65,15 @@ namespace AFSInterview
             {
                 currentTurnIndex = 0;
                 ExecuteNextTurn();
+            }
+        }
+
+        public void RemoveUnitFromTurnOrder(Unit unit)
+        {
+            if (turnOrder.Contains(unit))
+            {
+                turnOrder = new Queue<Unit>(turnOrder.Where(x => x != unit));
+                allUnits.Remove(unit);
             }
         }
     }

@@ -18,9 +18,8 @@
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(this);
             }
-            else
+            else if(Instance != this)
             {
                 Destroy(gameObject);
             }
