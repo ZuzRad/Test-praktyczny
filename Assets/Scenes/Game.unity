@@ -155,16 +155,22 @@ MonoBehaviour:
   items:
   - name: Wooden shield
     value: 90
+    isConsumable: 0
   - name: Bow
     value: 150
+    isConsumable: 0
   - name: Mana Potion
     value: 60
+    isConsumable: 0
   - name: Sword
     value: 130
+    isConsumable: 0
   - name: Long Sword
     value: 160
+    isConsumable: 0
   - name: Plate Armor
     value: 300
+    isConsumable: 0
   money: 280
 --- !u!4 &117263
 Transform:
@@ -1981,6 +1987,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562054653796185208, guid: 70297e35c79c32843b2cbbda048d720c,
+        type: 3}
+      propertyPath: item.isConsumable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6760591476060598716, guid: 70297e35c79c32843b2cbbda048d720c,
         type: 3}

@@ -8,10 +8,25 @@
 		[SerializeField] private List<Item> items;
 		[SerializeField] private int money;
 
-		public int Money => money;
+        public static InventoryController Instance;
+
+        public int Money => money;
 		public int ItemsCount => items.Count;
 
-		public void SellAllItemsUpToValue(int maxValue)
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void SellAllItemsUpToValue(int maxValue)
 		{
             for (int i = items.Count - 1; i >= 0; i--)
             {
@@ -24,9 +39,23 @@
             }
         }
 
-		public void AddItem(Item item)
+        public void AddMoney(int amount)
+        {
+            money += amount;
+        }
+
+        public void AddItem(Item item)
 		{
 			items.Add(item);
 		}
-	}
+
+        public Item GetLastItem()
+        {
+            if (items.Count > 0)
+            {
+                return items[^1];
+            }
+            return null;
+        }
+    }
 }

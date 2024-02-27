@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 8119570870960888954}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1562054653796185208
 MonoBehaviour:
@@ -49,6 +49,7 @@ MonoBehaviour:
   item:
     name: Apple
     value: 10
+    isConsumable: 1
 --- !u!65 &8426643071871308913
 BoxCollider:
   m_ObjectHideFlags: 0

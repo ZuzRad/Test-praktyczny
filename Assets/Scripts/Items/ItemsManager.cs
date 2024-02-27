@@ -1,6 +1,6 @@
 ﻿namespace AFSInterview.Items
 {
-	using TMPro;
+    using TMPro;
 	using UnityEngine;
     using UnityEngine.InputSystem;
 
@@ -18,15 +18,18 @@
         private float nextItemSpawnTime;
         private InputAction pickUpItem;
         private InputAction sellItems;
+        private InputAction useItem;
         private Camera mainCamera;
 
         private void Start()
         {
             pickUpItem = playerInput.actions["TryPickUpItem"];
             sellItems = playerInput.actions["SellItems"];
+            useItem = playerInput.actions["UseItem"];
 
             pickUpItem.performed += TryPickUpItem;
             sellItems.performed += SellItems;
+            useItem.performed += UseLastItem;
 
             UpdateMoneyUI();
             mainCamera = Camera.main;
@@ -73,6 +76,12 @@
                 inventoryController.AddItem(item);
                 Debug.Log($"Picked up {item.Name} with value of {item.Value} and now have {inventoryController.ItemsCount} items");
             }
+        }
+
+        private void UseLastItem(InputAction.CallbackContext context)
+        {
+            inventoryController.GetLastItem().Use();
+            UpdateMoneyUI();
         }
     }
 }
