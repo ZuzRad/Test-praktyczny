@@ -2,9 +2,6 @@
 
 
 
-![car](https://github.com/ZuzRad/UnrealEngine-Automatic-driving/assets/107064508/0cdf52b1-e637-4724-a9b6-7f95691fc339)
-
-
 ## 📖 Table of Contents
 * [General Information](https://github.com/ZuzRad/The-Turn-Based-Battle-Simulation#-general-information)
 * [Game Features](https://github.com/ZuzRad/The-Turn-Based-Battle-Simulation#-game-features)
